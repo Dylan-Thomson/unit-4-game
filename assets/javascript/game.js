@@ -10,11 +10,6 @@
   -Enemy reduces player hitpoints by his counterattack power if he survives
   -Check player HP. If it drops below zero, the game ends. Show restart button which allows player to pick a new character.
   -Increase player attack power by base attack power 
-
--Character object
- -healthPoints
- -attackPower
- -counterAttackPower
 */
 
 class Fighter {
@@ -53,10 +48,12 @@ function attack(playerFighter, currentEnemy) {
 
     logAttack(playerFighter, currentEnemy, playerFighter.attackPower);
     
+    // enemy counterattacks if they survive
     if(currentEnemy.healthPoints > 0) {
-        //counterattack
         playerFighter.healthPoints -= currentEnemy.counterAttackPower;
         logAttack(currentEnemy, playerFighter, currentEnemy.counterAttackPower);
+
+        // levelUp
         if(playerFighter.healthPoints > 0) {
             playerFighter.levelUp();
         }
@@ -71,14 +68,13 @@ function attack(playerFighter, currentEnemy) {
         //if there are enemies left, have player pick new enemy
         //otherwise game ends
     }
-}
-
-function logAttack(attacker, defender, damage) {
-    console.log(
-        attacker.name + " attacks " +
-        defender.name + " for " +
-        damage + " damage.\n" +
-        defender.name + " has " +
-        defender.healthPoints + " remaining!"
-    );
+    function logAttack(attacker, defender, damage) {
+        console.log(
+            attacker.name + " attacks " +
+            defender.name + " for " +
+            damage + " damage.\n" +
+            defender.name + " has " +
+            defender.healthPoints + " remaining!"
+        );
+    }
 }
