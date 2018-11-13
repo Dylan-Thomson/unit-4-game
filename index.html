@@ -7,11 +7,47 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/reset.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="assets/css/styles.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="assets/javascript/game.js"></script>
     </head>
     <body>
-
+        <div class="container">
+            <div class="row text-center" id="characterArea">
+                <div class="col-md-3">
+                    <div class="card" id="yoda">
+                        <img class="card-img-top" src="assets/images/yoda.jpg" alt="Yoda">
+                        <h2 class="card-title">Yoda</h2>
+                        <p class="card-text" id="yoda-health">100</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" id="luke">
+                        <img class="card-img-top" src="assets/images/luke.jpg" alt="Luke">
+                        <h2 class="card-title">Luke Skywalker</h2>
+                        <p class="card-text" id="luke-health">100</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" id="vader">
+                        <img class="card-img-top" src="assets/images/vader.jpg" alt="Vader">
+                        <h2 class="card-title">Darth Vader</h2>
+                        <p class="card-text" id="vaderHealth">100</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" id="maul">
+                        <img class="card-img-top" src="assets/images/maul.jpg" alt="Maul">
+                        <h2 class="card-title">Darth Maul</h2>
+                        <p class="card-text" id="maulHealth">100</p>
+                    </div>  
+                </div>
+            </div>
+            <div id="enemyArea"></div>
+            <div id="attackerArea"></div>
+            <div id="defenderArea"></div> 
+            <button class="btn btn-primary" id="attack-btn">Attack</button>
+        </div>
     </body>
 </html>
