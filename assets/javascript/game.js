@@ -44,6 +44,7 @@ var enemyFighters = [];
 var currentEnemy;
 
 function attack(playerFighter, currentEnemy) {
+    // damage enemy
     currentEnemy.healthPoints -= playerFighter.attackPower;
 
     logAttack(playerFighter, currentEnemy, playerFighter.attackPower);
@@ -53,7 +54,7 @@ function attack(playerFighter, currentEnemy) {
         playerFighter.healthPoints -= currentEnemy.counterAttackPower;
         logAttack(currentEnemy, playerFighter, currentEnemy.counterAttackPower);
 
-        // levelUp
+        // levelUp if player survives
         if(playerFighter.healthPoints > 0) {
             playerFighter.levelUp();
         }
