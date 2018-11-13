@@ -51,17 +51,34 @@ var currentEnemy;
 function attack(playerFighter, currentEnemy) {
     currentEnemy.healthPoints -= playerFighter.attackPower;
 
-    console.log(
-        playerFighter.name + " attacks " +
-        currentEnemy.name + " for " +
-        playerFighter.attackPower + " damage"
-    );
-    console.log(playerFighter.toString() + currentEnemy.toString());
-
-    if(currentEnemy.healthPoints >= 0) {
+    logAttack(playerFighter, currentEnemy, playerFighter.attackPower);
+    
+    if(currentEnemy.healthPoints > 0) {
         //counterattack
+        playerFighter.healthPoints -= currentEnemy.counterAttackPower;
+        logAttack(currentEnemy, playerFighter, currentEnemy.counterAttackPower);
+        if(playerFighter.healthPoints > 0) {
+            playerFighter.levelUp();
+        }
+        else {
+            console.log("You died.");
+        }
     }
     else {
         //remove enemy
+        console.log("Enemy defeated!");
+        //check enemies remaining
+        //if there are enemies left, have player pick new enemy
+        //otherwise game ends
     }
+}
+
+function logAttack(attacker, defender, damage) {
+    console.log(
+        attacker.name + " attacks " +
+        defender.name + " for " +
+        damage + " damage.\n" +
+        defender.name + " has " +
+        defender.healthPoints + " remaining!"
+    );
 }
