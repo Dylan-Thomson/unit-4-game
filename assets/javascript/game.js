@@ -80,10 +80,10 @@ class Game {
 var game;
 function init() {
     var fighters = {
-        soldier: new Fighter("soldier", 200, 15, 15),
-        tracer: new Fighter("tracer", 150, 20, 20),
-        reaper: new Fighter("reaper", 250, 10, 10),
-        widow: new Fighter("widow", 175, 12, 12)
+        soldier: new Fighter("soldier", 200, 15, 30),
+        tracer: new Fighter("tracer", 150, 20, 35),
+        reaper: new Fighter("reaper", 250, 10, 25),
+        widow: new Fighter("widow", 175, 12, 32)
     };
     game = new Game(fighters);
 
@@ -155,4 +155,41 @@ $(document).ready(function() {
     $("#new-game-btn").on("click", function() {
         init();
     });
+    
+    
+    $("#test-btn").on("click", function() {
+        // init();
+        runTest();
+    });
 });
+
+/*
+    For each fighter, try to fight all enemies in every order 123, 132, 213, 231, 312, 321
+    log it like this: 
+    ==============================
+    Fighter: Tracer
+    Order: Soldier, Reaper, Widow
+    Tracer vs Soldier: Win
+    Tracer vs Reaper: Win
+    Tracer vs Widow: Win
+    VICTORY
+    ==============================
+    Fighter: Tracer
+    Order: Widow, Soldier, Reaper
+    Tracer vs Widow: Win
+    Tracer vs Soldier: Loss
+    DEFEAT
+    ==============================
+*/
+function runTest() {
+    console.log(game.fighters);
+    Object.values(game.fighters).forEach(function(fighter) {
+        init();
+        // pick fighter
+        $("#" + fighter.name).trigger("click");
+        console.log(fighter.name, "clicked");
+        console.log(game.enemyFighters);
+
+        //fighter enemies in order
+    });
+}
