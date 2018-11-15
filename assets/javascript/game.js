@@ -12,15 +12,6 @@ class Fighter {
     }
 }
 
-Fighter.prototype.toString = function fighterToString() {
-    return "Name: " + this.name + "\n" +
-           "Health: " + this.healthPoints + "\n" +
-           "Base Attack Power: " + this.baseAttack + "\n" +
-           "Attack Power: " + this.attackPower + "\n" +
-           "Counter Attack: " + this.counterAttackPower + "\n" +
-           "******************************\n";
-}
-
 class Game {
     constructor(fighters) {
         this.fighters = fighters;
@@ -30,15 +21,17 @@ class Game {
     }
 
     attack() {
+        var result = {
+            player: this.playerFighter,
+            enemy: this.currentEnemy
+        };
         // damage enemy
         this.currentEnemy.healthPoints -= this.playerFighter.attackPower;
-        $("#" + this.currentEnemy.name + " .hp").text(this.currentEnemy.healthPoints);
         logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
         
         // enemy counterattacks if they survive
         if(this.currentEnemy.healthPoints > 0) {
             this.playerFighter.healthPoints -= this.currentEnemy.counterAttackPower;
-            $("#" + this.playerFighter.name + " .hp").text(this.playerFighter.healthPoints);
             logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
             
             // levelUp if player survives
@@ -48,18 +41,17 @@ class Game {
             else {
                 console.log("You died.");
                 this.playerFighter = null;
-                $("#new-game-btn").show();
-                $("#attack-btn").hide();
+                result.gameOver = "lose";
+                return result;
             }
         }
         else {
             //remove enemy
             console.log("Enemy defeated!");
+            result.defeatedEnemy = this.currentEnemy;
             this.enemyFighters = this.enemyFighters.filter((fighter) => {
                 return fighter !== this.currentEnemy;
             });
-            console.log(this.currentEnemy.name);
-            $("#" + this.currentEnemy.name).hide();
             this.currentEnemy = null;
             
             
@@ -67,10 +59,11 @@ class Game {
             //check enemies remaining
             if(!this.enemyFighters.length) {
                 console.log("You won!");
-                $("#new-game-btn").show();
-                $("#attack-btn").hide();
+                result.gameOver = "win";
             }
+            return result;
         }
+        return result;
         function logAttack(attacker, defender, damage) {
             console.log(
                 attacker.name + " attacks " +
@@ -78,7 +71,7 @@ class Game {
                 damage + " damage.\n" +
                 defender.name + " has " +
                 defender.healthPoints + " remaining!"
-                );
+            );
         }
     }    
 }
@@ -94,13 +87,13 @@ function init() {
     };
     game = new Game(fighters);
 
+    // Append fighters to fighter-select in order
     Object.values(fighters).forEach(function(fighter) {
         $("#" + fighter.name + " .hp").text(fighter.healthPoints);
         $("#" + fighter.name ).appendTo("#fighter-select");
         
     });
     $(".fighter").removeClass("player-fighter enemy-fighter");
-    // $(".fighter").appendTo("#fighter-select");
     $(".fighter").show();
     $("#new-game-btn").hide();
     $("#attack-btn").show();
@@ -111,11 +104,13 @@ $(document).ready(function() {
 
     $(".fighter").on("click", function() {
         var fighter = game.fighters[$(this).attr("id")];
+
         // Player selects fighter if none selected yet
         if(!game.playerFighter) {
             $(this).appendTo("#attacker-area");
             $(this).addClass("player-fighter");
             game.playerFighter = fighter;
+
             // Add other fighters to enemyFighters array
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
@@ -124,6 +119,7 @@ $(document).ready(function() {
                 $("#" + fighter.name).addClass("enemy-fighter");
             });
         }
+
         // Player selects an enemy
         else if(!game.currentEnemy && fighter !== game.playerFighter) {
             $(this).appendTo("#defender-area");
@@ -135,7 +131,24 @@ $(document).ready(function() {
     $("#attack-btn").on("click", function() {
         if(game.playerFighter && game.currentEnemy) {
             console.log(game.currentEnemy);
-            game.attack();
+            var result = game.attack();
+            $("#" + result.player.name + " .hp").text(result.player.healthPoints);
+            $("#" + result.enemy.name + " .hp").text(result.enemy.healthPoints);
+            console.log("Result", result);
+            if(result.gameOver === "lose") {
+                console.log("You lost!!!");
+                $("#new-game-btn").show();
+                $("#attack-btn").hide();
+            }
+            else if (result.defeatedEnemy) {
+                console.log("Enemy defeated!");
+                $("#" + result.defeatedEnemy.name).hide();
+                if(result.gameOver === "win") {
+                    console.log("You Won!!!");
+                    $("#new-game-btn").show();
+                    $("#attack-btn").hide();
+                }
+            }
         }
     });
 
