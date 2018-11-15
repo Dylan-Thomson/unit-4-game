@@ -49,6 +49,7 @@ class Game {
                 console.log("You died.");
                 this.playerFighter = null;
                 $("#new-game-btn").show();
+                $("#attack-btn").hide();
             }
         }
         else {
@@ -67,6 +68,7 @@ class Game {
             if(!this.enemyFighters.length) {
                 console.log("You won!");
                 $("#new-game-btn").show();
+                $("#attack-btn").hide();
             }
         }
         function logAttack(attacker, defender, damage) {
@@ -94,11 +96,14 @@ function init() {
 
     Object.values(fighters).forEach(function(fighter) {
         $("#" + fighter.name + " .hp").text(fighter.healthPoints);
+        $("#" + fighter.name ).appendTo("#fighter-select");
+        
     });
     $(".fighter").removeClass("player-fighter enemy-fighter");
-    $(".fighter").appendTo("#fighter-select");
+    // $(".fighter").appendTo("#fighter-select");
     $(".fighter").show();
     $("#new-game-btn").hide();
+    $("#attack-btn").show();
 }
 
 $(document).ready(function() {
