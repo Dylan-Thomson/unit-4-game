@@ -1,44 +1,66 @@
 body {
+    background: #111;
     background: url(../images/background.jpg);
 }
 
 img {
     border: 1px solid #222;
-    /* margin: 1em; */
     border-radius: 100%;
     width: 75px;
 }
 
 .fighter {
     display: inline-block;
-    background: #444;
+    background: #333;
     color: white;
-    margin: 1em;
-    padding: 1em;
+    /* padding: 1em; */
     text-align: center;
-    border-radius: 5%;
+    /* border-radius: 5%; */
     width: 155px;
 }
 
+
+#fighter-select .fighter {
+    /* margin: 0 0 0.25em 0; */
+    
+}
+#fighter-select .fighter:last-child {
+    /* margin: 0; */
+}
+
 .fighter p {
-    margin: 0;
+    /* margin: 0; */
 }
 
 .fighter:hover {
     cursor: pointer;
 }
 
+#fighter-select {
+    /* border: .25em solid #222; */
+    /* float:left; */
+}
+
 #fighter-select, #attacker-area, #defender-area {
     min-height: 200px;
     background: #222;
-    margin: 1em;
+    /* margin: 1em; */
+    /* display: inline-block; */
+    /* border: .25em solid #222; */
 }
+
 
 #new-game-btn {
     display: none;
 }
 
+.player-fighter {
+    background: #02a3e1;
+}
 
+.enemy-fighter {
+    background: #ff9b01;
+}
 /* 
 ff9b01 orange 
 02a3e1 blue

@@ -94,7 +94,8 @@ function init() {
 
     Object.values(fighters).forEach(function(fighter) {
         $("#" + fighter.name + " .hp").text(fighter.healthPoints);
-    })
+    });
+    $(".fighter").removeClass("player-fighter enemy-fighter");
     $(".fighter").appendTo("#fighter-select");
     $(".fighter").show();
     $("#new-game-btn").hide();
@@ -108,10 +109,14 @@ $(document).ready(function() {
         // Player selects fighter if none selected yet
         if(!game.playerFighter) {
             $(this).appendTo("#attacker-area");
+            $(this).addClass("player-fighter");
             game.playerFighter = fighter;
             // Add other fighters to enemyFighters array
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
+            });
+            game.enemyFighters.forEach(function(fighter) {
+                $("#" + fighter.name).addClass("enemy-fighter");
             });
         }
         // Player selects an enemy
