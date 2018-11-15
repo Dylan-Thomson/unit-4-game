@@ -1,10 +1,31 @@
+body {
+    background: url(../images/background.jpg);
+}
+
 img {
     border: 1px solid #222;
-    margin: 1em;
+    /* margin: 1em; */
+    border-radius: 100%;
+    width: 75px;
 }
 
 .fighter {
-    display: inline;
+    display: inline-block;
+    background: #444;
+    color: white;
+    margin: 1em;
+    padding: 1em;
+    text-align: center;
+    border-radius: 5%;
+    width: 155px;
+}
+
+.fighter p {
+    margin: 0;
+}
+
+.fighter:hover {
+    cursor: pointer;
 }
 
 #fighter-select, #attacker-area, #defender-area {
@@ -16,3 +37,9 @@ img {
 #new-game-btn {
     display: none;
 }
+
+
+/* 
+ff9b01 orange 
+02a3e1 blue
+*/

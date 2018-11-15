@@ -32,12 +32,13 @@ class Game {
     attack() {
         // damage enemy
         this.currentEnemy.healthPoints -= this.playerFighter.attackPower;
-        
+        $("#" + this.currentEnemy.name + " .hp").text(this.currentEnemy.healthPoints);
         logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
         
         // enemy counterattacks if they survive
         if(this.currentEnemy.healthPoints > 0) {
             this.playerFighter.healthPoints -= this.currentEnemy.counterAttackPower;
+            $("#" + this.playerFighter.name + " .hp").text(this.playerFighter.healthPoints);
             logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
             
             // levelUp if player survives
@@ -90,6 +91,10 @@ function init() {
         widow: new Fighter("widow", 175, 12, 12)
     };
     game = new Game(fighters);
+
+    Object.values(fighters).forEach(function(fighter) {
+        $("#" + fighter.name + " .hp").text(fighter.healthPoints);
+    })
     $(".fighter").appendTo("#fighter-select");
     $(".fighter").show();
     $("#new-game-btn").hide();
