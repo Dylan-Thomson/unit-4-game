@@ -47,6 +47,7 @@ class Game {
             else {
                 console.log("You died.");
                 this.playerFighter = null;
+                $("#new-game-btn").show();
             }
         }
         else {
@@ -64,6 +65,7 @@ class Game {
             //check enemies remaining
             if(!this.enemyFighters.length) {
                 console.log("You won!");
+                $("#new-game-btn").show();
             }
         }
         function logAttack(attacker, defender, damage) {
@@ -88,6 +90,9 @@ function init() {
         widow: new Fighter("widow", 175, 12, 12)
     };
     game = new Game(fighters);
+    $(".fighter").appendTo("#fighter-select");
+    $(".fighter").show();
+    $("#new-game-btn").hide();
 }
 
 $(document).ready(function() {
@@ -117,5 +122,9 @@ $(document).ready(function() {
             console.log(game.currentEnemy);
             game.attack();
         }
+    });
+
+    $("#new-game-btn").on("click", function() {
+        init();
     });
 });
