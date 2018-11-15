@@ -7,7 +7,7 @@ img {
     display: inline;
 }
 
-#attacker-area, #defender-area {
+#fighter-select, #attacker-area, #defender-area {
     min-height: 200px;
     background: #222;
     margin: 1em;

@@ -70,13 +70,15 @@ class Game {
             this.enemyFighters = this.enemyFighters.filter((fighter) => {
                 return fighter !== this.currentEnemy;
             });
+            console.log(this.currentEnemy.name);
+            $("#" + this.currentEnemy.name).hide();
             this.currentEnemy = null;
             
             
             console.log(this.enemyFighters);
             //check enemies remaining
-            if(!this.enemyFighters) {
-                //game over
+            if(!this.enemyFighters.length) {
+                console.log("You won!");
             }
             else {
                 //pick new fighter
@@ -96,13 +98,14 @@ class Game {
     }    
 }
 
+// Set up game object
 var game;
 function init() {
     var fighters = {
-        soldier: new Fighter("Solider 76", 200, 15, 15),
-        tracer: new Fighter("Tracer", 150, 20, 20),
-        reaper: new Fighter("Reaper", 250, 10, 100),
-        widow: new Fighter("Widowmaker", 175, 12, 12)
+        soldier: new Fighter("soldier", 200, 15, 15),
+        tracer: new Fighter("tracer", 150, 20, 20),
+        reaper: new Fighter("reaper", 250, 10, 10),
+        widow: new Fighter("widow", 175, 12, 12)
     };
     game = new Game(fighters);
 }
@@ -110,18 +113,19 @@ function init() {
     
 $(document).ready(function() {
     init();
-    
+
     $(".fighter").on("click", function() {
+        var fighter = game.fighters[$(this).attr("id")];
         if(!game.playerFighter) {
             $(this).appendTo("#attacker-area");
-            game.playerFighter = game.fighters[$(this).attr("id")];
+            game.playerFighter = fighter;
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
             });
         }
-        else if(!game.currentEnemy) {
+        else if(!game.currentEnemy && fighter !== game.playerFighter) {
             $(this).appendTo("#defender-area");
-            game.currentEnemy = game.fighters[$(this).attr("id")];
+            game.currentEnemy = fighter;
         }
     });
         
