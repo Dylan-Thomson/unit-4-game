@@ -21,7 +21,7 @@ class Game {
     }
 
     attack() {
-        var result = {
+        let result = {
             player: this.playerFighter,
             enemy: this.currentEnemy
         };
@@ -77,9 +77,9 @@ class Game {
 }
 
 // Set up game object
-var game;
+let game;
 function init() {
-    var fighters = {
+    const fighters = {
         soldier: new Fighter("soldier", 200, 15, 30),
         tracer: new Fighter("tracer", 150, 20, 35),
         reaper: new Fighter("reaper", 250, 10, 25),
@@ -103,7 +103,7 @@ $(document).ready(function() {
     init();
 
     $(".fighter").on("click", function() {
-        var fighter = game.fighters[$(this).attr("id")];
+        const fighter = game.fighters[$(this).attr("id")];
 
         // Player selects fighter if none selected yet
         if(!game.playerFighter) {
@@ -131,7 +131,7 @@ $(document).ready(function() {
     $("#attack-btn").on("click", function() {
         if(game.playerFighter && game.currentEnemy) {
             console.log(game.currentEnemy);
-            var result = game.attack();
+            const result = game.attack();
             $("#" + result.player.name + " .hp").text(result.player.healthPoints);
             $("#" + result.enemy.name + " .hp").text(result.enemy.healthPoints);
             console.log("Result", result);
@@ -190,6 +190,6 @@ function runTest() {
         console.log(fighter.name, "clicked");
         console.log(game.enemyFighters);
 
-        //fighter enemies in order
+        //fight enemies in order
     });
 }
