@@ -1,0 +1,14 @@
+img {
+    border: 1px solid #222;
+    margin: 1em;
+}
+
+.fighter {
+    display: inline;
+}
+
+#attacker-area, #defender-area {
+    min-height: 200px;
+    background: #222;
+    margin: 1em;
+}

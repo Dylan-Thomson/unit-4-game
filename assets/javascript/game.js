@@ -20,6 +20,7 @@ class Fighter {
         this.attackPower = this.baseAttack;
         this.counterAttackPower = counterAttackPower;
     }
+
     levelUp() {
         this.attackPower += this.baseAttack;
     }
@@ -34,48 +35,151 @@ Fighter.prototype.toString = function fighterToString() {
            "******************************\n";
 }
 
-var jarjar = new Fighter("Jar Jar", 120, 6, 25);
-var ewok = new Fighter("Ewok", 80, 16, 30);
-var jabba = new Fighter("Jabba", 200, 4, 10);
-var chewie = new Fighter("Chewie", 150, 5, 20);
 
-var playerFighter;
-var enemyFighters = [];
-var currentEnemy;
+class Game {
+    constructor(fighters) {
+        this.fighters = fighters;
+        this.playerFighter;
+        this.enemyFighters = [];
+        this.currentEnemy;
+    }
 
-function attack(playerFighter, currentEnemy) {
-    // damage enemy
-    currentEnemy.healthPoints -= playerFighter.attackPower;
-
-    logAttack(playerFighter, currentEnemy, playerFighter.attackPower);
-    
-    // enemy counterattacks if they survive
-    if(currentEnemy.healthPoints > 0) {
-        playerFighter.healthPoints -= currentEnemy.counterAttackPower;
-        logAttack(currentEnemy, playerFighter, currentEnemy.counterAttackPower);
-
-        // levelUp if player survives
-        if(playerFighter.healthPoints > 0) {
-            playerFighter.levelUp();
+    attack() {
+        // damage enemy
+        this.currentEnemy.healthPoints -= this.playerFighter.attackPower;
+        
+        logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
+        
+        // enemy counterattacks if they survive
+        if(this.currentEnemy.healthPoints > 0) {
+            this.playerFighter.healthPoints -= this.currentEnemy.counterAttackPower;
+            logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
+            
+            // levelUp if player survives
+            if(this.playerFighter.healthPoints > 0) {
+                this.playerFighter.levelUp();
+            }
+            else {
+                console.log("You died.");
+                this.playerFighter = null;
+            }
         }
         else {
-            console.log("You died.");
+            //remove enemy
+            console.log("Enemy defeated!");
+            this.enemyFighters = this.enemyFighters.filter((fighter) => {
+                return fighter !== this.currentEnemy;
+            });
+            this.currentEnemy = null;
+            
+            
+            console.log(this.enemyFighters);
+            //check enemies remaining
+            if(!this.enemyFighters) {
+                //game over
+            }
+            else {
+                //pick new fighter
+            }
+            //if there are enemies left, have player pick new enemy
+            //otherwise game ends
         }
-    }
-    else {
-        //remove enemy
-        console.log("Enemy defeated!");
-        //check enemies remaining
-        //if there are enemies left, have player pick new enemy
-        //otherwise game ends
-    }
-    function logAttack(attacker, defender, damage) {
-        console.log(
-            attacker.name + " attacks " +
-            defender.name + " for " +
-            damage + " damage.\n" +
-            defender.name + " has " +
-            defender.healthPoints + " remaining!"
-        );
-    }
+        function logAttack(attacker, defender, damage) {
+            console.log(
+                attacker.name + " attacks " +
+                defender.name + " for " +
+                damage + " damage.\n" +
+                defender.name + " has " +
+                defender.healthPoints + " remaining!"
+                );
+        }
+    }    
 }
+
+var game;
+function init() {
+    var fighters = {
+        soldier: new Fighter("Solider 76", 200, 15, 15),
+        tracer: new Fighter("Tracer", 150, 20, 20),
+        reaper: new Fighter("Reaper", 250, 10, 100),
+        widow: new Fighter("Widowmaker", 175, 12, 12)
+    };
+    game = new Game(fighters);
+}
+
+    
+$(document).ready(function() {
+    init();
+    
+    $(".fighter").on("click", function() {
+        if(!game.playerFighter) {
+            $(this).appendTo("#attacker-area");
+            game.playerFighter = game.fighters[$(this).attr("id")];
+            game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
+                return fighter !== game.playerFighter;
+            });
+        }
+        else if(!game.currentEnemy) {
+            $(this).appendTo("#defender-area");
+            game.currentEnemy = game.fighters[$(this).attr("id")];
+        }
+    });
+        
+    $("#attack-btn").on("click", function() {
+        if(game.playerFighter && game.currentEnemy) {
+            console.log(game.currentEnemy);
+            game.attack();
+        }
+    });
+});
+
+// function attack() {
+//     // damage enemy
+//     currentEnemy.healthPoints -= playerFighter.attackPower;
+
+//     logAttack(playerFighter, currentEnemy, playerFighter.attackPower);
+    
+//     // enemy counterattacks if they survive
+//     if(currentEnemy.healthPoints > 0) {
+//         playerFighter.healthPoints -= currentEnemy.counterAttackPower;
+//         logAttack(currentEnemy, playerFighter, currentEnemy.counterAttackPower);
+
+//         // levelUp if player survives
+//         if(playerFighter.healthPoints > 0) {
+//             playerFighter.levelUp();
+//         }
+//         else {
+//             console.log("You died.");
+//             playerFighter = null;
+//         }
+//     }
+//     else {
+//         //remove enemy
+//         console.log("Enemy defeated!");
+//         enemyFighters = enemyFighters.filter(function(fighter) {
+//             return fighter !== currentEnemy;
+//         });
+//         currentEnemy = null;
+
+
+//         console.log(enemyFighters);
+//         //check enemies remaining
+//         if(!enemyFighters) {
+//             //game over
+//         }
+//         else {
+//             //pick new fighter
+//         }
+//         //if there are enemies left, have player pick new enemy
+//         //otherwise game ends
+//     }
+//     function logAttack(attacker, defender, damage) {
+//         console.log(
+//             attacker.name + " attacks " +
+//             defender.name + " for " +
+//             damage + " damage.\n" +
+//             defender.name + " has " +
+//             defender.healthPoints + " remaining!"
+//         );
+//     }
+// }
