@@ -1,50 +1,48 @@
 body {
     background: #111;
     background: url(../images/background.jpg);
+    padding: 1em;
+    width: 60%;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+h2 {
+    font-size: 1.5em;
+    color: #fff;
 }
 
 img {
     border: 1px solid #222;
     border-radius: 100%;
-    width: 75px;
+    width: 50px;
 }
 
 .fighter {
     display: inline-block;
     background: #333;
     color: white;
-    /* padding: 1em; */
+    padding: 1em;
     text-align: center;
-    /* border-radius: 5%; */
-    width: 155px;
+    border-radius: 5%;
+    width: 5em;
     margin: 1em;
-}
-
-#fighter-select .fighter {
-    /* margin: 0 0 0.25em 0; */
-    
-}
-#fighter-select .fighter:last-child {
-    /* margin: 0; */
-}
-
-.fighter p {
-    /* margin: 0; */
 }
 
 .fighter:hover {
     cursor: pointer;
 }
 
-#fighter-select {
-    /* border: .25em solid #222; */
-    /* float:left; */
-}
 
 #fighter-select, #attacker-area, #defender-area {
     min-height: 200px;
-    /* background: #222; */
-    margin: 1em;
+    background: rgba(15, 15, 15, 0.5);
+    margin: 1em 0;
+    text-align: center;
     /* display: inline-block; */
     /* border: .25em solid #222; */
 }
@@ -65,3 +63,22 @@ img {
 ff9b01 orange 
 02a3e1 blue
 */
+
+@media only screen and (max-width: 768px) {
+    body {
+        padding: 1em 0;
+        width: 100%;
+    }
+    h2 {
+        text-align: center;
+    }
+
+    #attacker-area, #defender-area {
+        /* display: inline-block; */
+        width: 50%;
+        float: left;
+    }
+    .fighter {}
+
+
+}

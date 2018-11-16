@@ -115,15 +115,16 @@ $(document).ready(function() {
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
             });
-            game.enemyFighters.forEach(function(fighter) {
-                $("#" + fighter.name).addClass("enemy-fighter");
-            });
+            // game.enemyFighters.forEach(function(fighter) {
+            //     $("#" + fighter.name).addClass("enemy-fighter");
+            // });
         }
 
         // Player selects an enemy
         else if(!game.currentEnemy && fighter !== game.playerFighter) {
             $(this).appendTo("#defender-area");
             game.currentEnemy = fighter;
+            $("#" + fighter.name).addClass("enemy-fighter");
         }
     });
     
@@ -141,7 +142,7 @@ $(document).ready(function() {
                 $("#attack-btn").hide();
             }
             else if (result.defeatedEnemy) {
-                console.log("Enemy defeated!");
+                console.log("Enemy defeated!", result.defeatedEnemy.name);
                 $("#" + result.defeatedEnemy.name).hide();
                 if(result.gameOver === "win") {
                     console.log("You Won!!!");
