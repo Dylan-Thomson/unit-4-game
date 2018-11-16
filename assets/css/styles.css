@@ -2,7 +2,7 @@ body {
     background: #111;
     background: url(../images/background.jpg);
     padding: 1em;
-    width: 60%;
+    width: 40%;
     margin: auto;
 }
 
@@ -14,6 +14,8 @@ h1 {
 h2 {
     font-size: 1.5em;
     color: #fff;
+    background: #111;
+    padding: .5em;
 }
 
 img {
@@ -47,9 +49,35 @@ img {
     /* border: .25em solid #222; */
 }
 
+#attacker-area, #defender-area {
+    width: 50%;
+    float: left;
+}
+
+#attack-btn, #new-game-btn {
+    padding: 1em;
+    font-size: 1.25em;
+    border-radius: 0.5em;
+    border: none;
+    width: 10em;
+}
+
+#attack-btn:hover, #new-game-btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+#attack-btn:focus, #new-game-btn:focus {
+    outline: none;
+} 
+#attack-btn {
+    background: #ff9b01;
+    color: white;
+}
 
 #new-game-btn {
     display: none;
+    background: #02a3e1;
+    color: white;
 }
 
 .player-fighter {
@@ -64,21 +92,22 @@ ff9b01 orange
 02a3e1 blue
 */
 
+#game-panel {
+    text-align: center;
+}
+
+#game-message {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+    color: #fff;
+}
+
 @media only screen and (max-width: 768px) {
     body {
         padding: 1em 0;
         width: 100%;
     }
-    h2 {
-        text-align: center;
-    }
 
-    #attacker-area, #defender-area {
-        /* display: inline-block; */
-        width: 50%;
-        float: left;
-    }
-    .fighter {}
 
 
 }

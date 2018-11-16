@@ -97,6 +97,7 @@ function init() {
     $(".fighter").show();
     $("#new-game-btn").hide();
     $("#attack-btn").show();
+    $("#game-message").text("Choose a fighter");
 }
 
 $(document).ready(function() {
@@ -115,16 +116,15 @@ $(document).ready(function() {
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
             });
-            // game.enemyFighters.forEach(function(fighter) {
-            //     $("#" + fighter.name).addClass("enemy-fighter");
-            // });
+            $("#game-message").text("Choose an opponent");
         }
-
+        
         // Player selects an enemy
         else if(!game.currentEnemy && fighter !== game.playerFighter) {
             $(this).appendTo("#defender-area");
             game.currentEnemy = fighter;
             $("#" + fighter.name).addClass("enemy-fighter");
+            $("#game-message").text("Attack!");
         }
     });
     
@@ -140,14 +140,19 @@ $(document).ready(function() {
                 console.log("You lost!!!");
                 $("#new-game-btn").show();
                 $("#attack-btn").hide();
+                $("#game-message").text("You lost...");
             }
             else if (result.defeatedEnemy) {
                 console.log("Enemy defeated!", result.defeatedEnemy.name);
                 $("#" + result.defeatedEnemy.name).hide();
                 if(result.gameOver === "win") {
                     console.log("You Won!!!");
+                    $("#game-message").text("You won!!");
                     $("#new-game-btn").show();
                     $("#attack-btn").hide();
+                }
+                else {
+                    $("#game-message").text("Choose an opponent");
                 }
             }
         }
