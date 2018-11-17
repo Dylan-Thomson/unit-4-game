@@ -88,7 +88,7 @@ function init() {
     });
 
     // Reset web site
-    $(".fighter").removeClass("player-fighter enemy-fighter");
+    $(".fighter").removeClass("player-fighter enemy-fighter defeated");
     $(".fighter").show();
     $("#new-game-btn").hide();
     $("#attack-btn").show();
@@ -102,7 +102,7 @@ $(document).ready(function() {
         const fighter = game.fighters[$(this).attr("id")];
 
         // Player selects fighter if none selected yet
-        if(!game.playerFighter) {
+        if(!game.playerFighter && !game.currentEnemy) {
             $(this).appendTo("#attacker-area");
             $(this).addClass("player-fighter");
             game.playerFighter = fighter;
@@ -128,13 +128,23 @@ $(document).ready(function() {
         if(game.playerFighter && game.currentEnemy) {
             const result = game.attack();
             $("#" + result.player.name + " .hp").text(result.player.healthPoints);
+            // $("#" + result.player.name).fadeTo("fast", .5, function() {
+            //     $("#" + result.player.name).fadeTo("fast", 1);
+            // });
             $("#" + result.enemy.name + " .hp").text(result.enemy.healthPoints);
+            // $("#" + result.enemy.name).fadeTo("fast", .5, function() {
+            //     $("#" + result.enemy.name).fadeTo("fast", 1);
+            // });
             if(result.gameOver === "lose") {
                 $("#new-game-btn").show();
                 $("#attack-btn").hide();
                 $("#game-message").text("You lost...");
+                $("#" + result.player.name).addClass("defeated");
+                // $("#" + result.player.name).fadeOut("slow");
             }
             else if (result.defeatedEnemy) {
+                // $("#" + result.defeatedEnemy.name).addClass("defeated");
+                // $("#" + result.defeatedEnemy.name).fadeOut("slow");
                 $("#" + result.defeatedEnemy.name).hide();
                 if(result.gameOver === "win") {
                     $("#game-message").text("You won!!");

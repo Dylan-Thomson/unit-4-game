@@ -114,6 +114,10 @@ h2 {
 .enemy-fighter {
     background: #ff9b01;
 }
+
+.defeated {
+    background: #E14002;
+}
 /* 
 ff9b01 orange 
 02a3e1 blue
