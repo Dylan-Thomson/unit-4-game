@@ -1,3 +1,6 @@
+/***********************************
+    General styles
+************************************/
 body {
     background: #111;
     background: url(../images/background.jpg);
@@ -18,12 +21,9 @@ h2 {
     padding: .5em;
 }
 
-img {
-    border: 1px solid #222;
-    border-radius: 100%;
-    width: 50px;
-}
-
+/***********************************
+    Fighter
+************************************/
 .fighter {
     display: inline-block;
     background: #333;
@@ -35,25 +35,46 @@ img {
     margin: 1em;
 }
 
+.fighter img {
+    border: 1px solid #222;
+    border-radius: 100%;
+    width: 50px;
+}
 .fighter:hover {
     cursor: pointer;
 }
 
+/***********************************
+    Game Area divs
+************************************/
+#attacker-area, #defender-area {
+    width: 50%;
+    float: left;
+}
 
 #fighter-select, #attacker-area, #defender-area {
     min-height: 200px;
     background: rgba(15, 15, 15, 0.5);
     margin: 1em 0;
     text-align: center;
-    /* display: inline-block; */
-    /* border: .25em solid #222; */
 }
 
-#attacker-area, #defender-area {
-    width: 50%;
-    float: left;
+/***********************************
+    Game panel div
+************************************/
+#game-panel {
+    text-align: center;
 }
 
+#game-message {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+/***********************************
+    Buttons
+************************************/
 #attack-btn, #new-game-btn {
     padding: 1em;
     font-size: 1.25em;
@@ -66,9 +87,11 @@ img {
     cursor: pointer;
     opacity: 0.8;
 }
+
 #attack-btn:focus, #new-game-btn:focus {
     outline: none;
 } 
+
 #attack-btn {
     background: #ff9b01;
     color: white;
@@ -80,6 +103,9 @@ img {
     color: white;
 }
 
+/***********************************
+    Color classes
+************************************/
 .player-fighter {
     background: #02a3e1;
 }
@@ -92,22 +118,18 @@ ff9b01 orange
 02a3e1 blue
 */
 
-#game-panel {
-    text-align: center;
-}
-
-#game-message {
-    margin-top: 0.5em;
-    font-size: 1.5em;
-    color: #fff;
-}
-
+/***********************************
+    Media Queries
+************************************/
 @media only screen and (max-width: 768px) {
     body {
         padding: 1em 0;
         width: 100%;
     }
 
+    .fighter {
+        font-size: 0.75em;
+    }
 
 
 }

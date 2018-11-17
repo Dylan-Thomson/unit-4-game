@@ -27,19 +27,18 @@ class Game {
         };
         // damage enemy
         this.currentEnemy.healthPoints -= this.playerFighter.attackPower;
-        logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
+        //logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
         
         // enemy counterattacks if they survive
         if(this.currentEnemy.healthPoints > 0) {
             this.playerFighter.healthPoints -= this.currentEnemy.counterAttackPower;
-            logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
+            //logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
             
             // levelUp if player survives
             if(this.playerFighter.healthPoints > 0) {
                 this.playerFighter.levelUp();
             }
             else {
-                console.log("You died.");
                 this.playerFighter = null;
                 result.gameOver = "lose";
                 return result;
@@ -47,18 +46,14 @@ class Game {
         }
         else {
             //remove enemy
-            console.log("Enemy defeated!");
             result.defeatedEnemy = this.currentEnemy;
             this.enemyFighters = this.enemyFighters.filter((fighter) => {
                 return fighter !== this.currentEnemy;
             });
             this.currentEnemy = null;
             
-            
-            console.log(this.enemyFighters);
             //check enemies remaining
             if(!this.enemyFighters.length) {
-                console.log("You won!");
                 result.gameOver = "win";
             }
             return result;
@@ -93,6 +88,8 @@ function init() {
         $("#" + fighter.name ).appendTo("#fighter-select");
         
     });
+
+    // Reset web site
     $(".fighter").removeClass("player-fighter enemy-fighter");
     $(".fighter").show();
     $("#new-game-btn").hide();
@@ -131,22 +128,17 @@ $(document).ready(function() {
     // Player clicks attack
     $("#attack-btn").on("click", function() {
         if(game.playerFighter && game.currentEnemy) {
-            console.log(game.currentEnemy);
             const result = game.attack();
             $("#" + result.player.name + " .hp").text(result.player.healthPoints);
             $("#" + result.enemy.name + " .hp").text(result.enemy.healthPoints);
-            console.log("Result", result);
             if(result.gameOver === "lose") {
-                console.log("You lost!!!");
                 $("#new-game-btn").show();
                 $("#attack-btn").hide();
                 $("#game-message").text("You lost...");
             }
             else if (result.defeatedEnemy) {
-                console.log("Enemy defeated!", result.defeatedEnemy.name);
                 $("#" + result.defeatedEnemy.name).hide();
                 if(result.gameOver === "win") {
-                    console.log("You Won!!!");
                     $("#game-message").text("You won!!");
                     $("#new-game-btn").show();
                     $("#attack-btn").hide();
