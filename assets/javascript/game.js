@@ -1,14 +1,14 @@
 class Fighter {
-    constructor(name, healthPoints, attackPower, counterAttackPower) {
+    constructor(name, healthPoints, baseAttackPower, counterAttackPower) {
         this.name = name;
         this.healthPoints = healthPoints;
-        this.baseAttack = attackPower;
-        this.attackPower = this.baseAttack;
+        this.baseAttackPower = baseAttackPower;
+        this.attackPower = this.baseAttackPower;
         this.counterAttackPower = counterAttackPower;
     }
 
     levelUp() {
-        this.attackPower += this.baseAttack;
+        this.attackPower += this.baseAttackPower;
     }
 }
 
@@ -27,6 +27,7 @@ class Game {
         };
         // damage enemy
         this.currentEnemy.healthPoints -= this.playerFighter.attackPower;
+        this.playerFighter.levelUp();
         //logAttack(this.playerFighter, this.currentEnemy, this.playerFighter.attackPower);
         
         // enemy counterattacks if they survive
@@ -34,11 +35,8 @@ class Game {
             this.playerFighter.healthPoints -= this.currentEnemy.counterAttackPower;
             //logAttack(this.currentEnemy, this.playerFighter, this.currentEnemy.counterAttackPower);
             
-            // levelUp if player survives
-            if(this.playerFighter.healthPoints > 0) {
-                this.playerFighter.levelUp();
-            }
-            else {
+            // Check if player dies and game ends
+            if(this.playerFighter.healthPoints <= 0) {
                 this.playerFighter = null;
                 result.gameOver = "lose";
                 return result;
@@ -75,10 +73,10 @@ class Game {
 let game;
 function init() {
     const fighters = {
-        soldier: new Fighter("soldier", 200, 20, 30),
-        tracer: new Fighter("tracer", 150, 25, 40),
-        reaper: new Fighter("reaper", 230, 15, 25),
-        widow: new Fighter("widow", 160, 25, 35)
+        soldier: new Fighter("soldier", 200, 10, 25), //can win/lose
+        tracer: new Fighter("tracer", 150, 18, 35), //can win/lose
+        reaper: new Fighter("reaper", 230, 10, 20), //can win/lose
+        widow: new Fighter("widow", 160, 16, 30) //can win/lose
     };
     game = new Game(fighters);
 
