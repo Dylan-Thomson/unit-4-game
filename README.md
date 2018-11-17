@@ -1,6 +1,8 @@
 # unit-4-game
 User selects a fighter, then must choose to fight opponents in a certain order to win the game.
 
+This project was created as a homework assignment for the Case Western Web Development Bootcamp.
+
 ## Fighter class
 The Fighter class contains properties for `name`, `healthPoints`, `baseAttackPower`, `attackPower`, and `counterAttackPower`.
 
