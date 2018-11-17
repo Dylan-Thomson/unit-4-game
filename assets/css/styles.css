@@ -42,6 +42,7 @@ h2 {
 }
 .fighter:hover {
     cursor: pointer;
+    opacity: 0.8;
 }
 
 /***********************************
