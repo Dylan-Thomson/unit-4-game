@@ -107,7 +107,7 @@ $(document).ready(function() {
             $(this).addClass("player-fighter");
             game.playerFighter = fighter;
 
-            // Add other fighters to enemyFighters array
+            // Add other fighters to enemy Fighters array
             game.enemyFighters = Object.values(game.fighters).filter((fighter) => {
                 return fighter !== game.playerFighter;
             });
@@ -158,7 +158,5 @@ $(document).ready(function() {
         }
     });
 
-    $("#new-game-btn").on("click", function() {
-        init();
-    });
+    $("#new-game-btn").on("click", init);
 });
