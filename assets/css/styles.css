@@ -31,7 +31,7 @@ h2 {
     padding: 1em;
     text-align: center;
     border-radius: 5%;
-    width: 5em;
+    width: 6em;
     margin: 1em;
 }
 
@@ -128,7 +128,7 @@ ff9b01 orange
     }
 
     .fighter {
-        font-size: 0.75em;
+        /* font-size: 0.75em; */
     }
 
 
